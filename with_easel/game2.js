@@ -15,18 +15,22 @@ p.movementCalculation = function(delta) {
     return (delta)/1000*p.pixelsPerSecond;
 }
 p.moveUp = function(delta) {
-    this.y -= this.movementCalculation(delta);
+    if(this.y-this.movementCalculation(delta) > 0)
+        this.y -= this.movementCalculation(delta);
 }
 p.moveDown = function(delta) {
-    this.y += this.movementCalculation(delta);
+    if(this.y+this.movementCalculation(delta)+this.height < 500)
+        this.y += this.movementCalculation(delta);
 }
 p.moveLeft = function(delta) {
-    this.x -= this.movementCalculation(delta);
+    if(this.x-this.movementCalculation(delta)> 0)
+        this.x -= this.movementCalculation(delta);
 }
 p.moveRight = function(delta) {
-    this.x += this.movementCalculation(delta);
+    if(this.x+this.movementCalculation(delta)+this.height < 500)
+        this.x += this.movementCalculation(delta);
 }
-window.Actor = Actor;
+//window.Actor = Actor;
 
 
 function checkCollision(rect1, rect2){

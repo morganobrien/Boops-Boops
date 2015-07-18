@@ -65,7 +65,7 @@ function init() {
 
     target = stage.addChild(new createjs.Shape());
     target.r = 45;
-    target.graphics.beginFill("red").drawCircle(0,0,45)
+    target.graphics.beginFill("red").drawCircle(0,0,target.r)
             .beginFill("white").drawCircle(0,0,30)
             .beginFill("red").drawCircle(0,0,15);
     target.x = 300;

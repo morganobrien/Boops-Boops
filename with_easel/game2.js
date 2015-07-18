@@ -1,35 +1,38 @@
 
 var Actor = function(color, w, h) {
-                this.initialize(color, w, h);
-            }
+    this.pixelsPerSecond = 100;
 
-var p = Actor.prototype = new createjs.Shape();
-p.pixelsPerSecond = 100;
+    this.width = w;
+    this.height = h;
+    this.graphics.beginFill(color).drawRect(0,0,w,h);
 
-p.initialize = function(color, w, h) {
-    p.width = w;
-    p.height = h;
-    p.graphics.beginFill(color).drawRect(0,0,w,h);
+    this.movementCalculation = function(delta) {
+        return (delta)/1000*this.pixelsPerSecond;
+    }
+    this.moveUp = function(delta) {
+        if(this.y-this.movementCalculation(delta) > 0)
+            this.y -= this.movementCalculation(delta);
+    }
+    this.moveDown = function(delta) {
+        if(this.y+this.movementCalculation(delta)+this.height < 500)
+            this.y += this.movementCalculation(delta);
+    }
+    this.moveLeft = function(delta) {
+        if(this.x-this.movementCalculation(delta)> 0)
+            this.x -= this.movementCalculation(delta);
+    }
+    this.moveRight = function(delta) {
+        if(this.x+this.movementCalculation(delta)+this.height < 500)
+            this.x += this.movementCalculation(delta);
+    }
 }
-p.movementCalculation = function(delta) {
-    return (delta)/1000*p.pixelsPerSecond;
+
+function move(shape){
+
 }
-p.moveUp = function(delta) {
-    if(this.y-this.movementCalculation(delta) > 0)
-        this.y -= this.movementCalculation(delta);
-}
-p.moveDown = function(delta) {
-    if(this.y+this.movementCalculation(delta)+this.height < 500)
-        this.y += this.movementCalculation(delta);
-}
-p.moveLeft = function(delta) {
-    if(this.x-this.movementCalculation(delta)> 0)
-        this.x -= this.movementCalculation(delta);
-}
-p.moveRight = function(delta) {
-    if(this.x+this.movementCalculation(delta)+this.height < 500)
-        this.x += this.movementCalculation(delta);
-}
+
+Actor.prototype = new createjs.Shape();
+
 //window.Actor = Actor;
 
 
@@ -38,7 +41,20 @@ function checkCollision(rect1, rect2){
     return true;
 }
 
+function checkCollisionWithCircle(rect, circle){
+    var distX = Math.abs(circle.x - rect.x-rect.width/2);
+    var distY = Math.abs(circle.y - rect.y-rect.height/2);
 
+    if (distX > (rect.width/2 + circle.r)) { return false; }
+    if (distY > (rect.height/2 + circle.r)) { return false; }
+
+    if (distX <= (rect.width/2)) { return true; }
+    if (distY <= (rect.height/2)) { return true; }
+
+    var dx=distX-rect.width/2;
+    var dy=distY-rect.height/2;
+    return (dx*dx+dy*dy<=(circle.r*circle.r));
+}
 
 function init() {
 
@@ -47,9 +63,13 @@ function init() {
     myActor.x = 100;
     myActor.y = 100;
 
-    var target = stage.addChild(new Actor("#FF0000",50,50));
-    target.x = 400;
-    target.y = 400;
+    target = stage.addChild(new createjs.Shape());
+    target.r = 45;
+    target.graphics.beginFill("red").drawCircle(0,0,45)
+            .beginFill("white").drawCircle(0,0,30)
+            .beginFill("red").drawCircle(0,0,15);
+    target.x = 300;
+    target.y = 380;
 
 
     var up = false;
@@ -72,7 +92,7 @@ function init() {
         if (key.isPressed('right') || key.isPressed('d')) {
             myActor.moveRight(event.delta);
         }
-        if (checkCollision(myActor, target)){
+        if (checkCollisionWithCircle(myActor, target)){
             console.log("hit")
             target.x = Math.random()*500
             target.y = Math.random()*500

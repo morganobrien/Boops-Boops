@@ -1,12 +1,15 @@
-var Actor = function(color) {
-                this.initialize(color);
+
+var Actor = function(color, w, h) {
+                this.initialize(color, w, h);
             }
+
 var p = Actor.prototype = new createjs.Shape();
 p.pixelsPerSecond = 100;
-p.initialize = function(color) {
-    var width = 50;
-    var height = 50;
-    p.graphics.beginFill(color).drawRoundRect(0,0,width,height, 10);
+
+p.initialize = function(color, w, h) {
+    p.width = w;
+    p.height = h;
+    p.graphics.beginFill(color).drawRect(0,0,w,h);
 }
 p.movementCalculation = function(delta) {
     return (delta)/1000*p.pixelsPerSecond;
@@ -26,12 +29,25 @@ p.moveRight = function(delta) {
 window.Actor = Actor;
 
 
+function checkCollision(rect1, rect2){
+    if ( rect1.x >= rect2.x + rect2.width || rect1.x + rect1.width <= rect2.x || rect1.y >= rect2.y + rect2.height || rect1.y + rect1.height <= rect2.y ) return false;
+    return true;
+}
+
+
 
 function init() {
+
     var stage = new createjs.Stage("demoCanvas");
-    var myActor = stage.addChild(new Actor("#000"));
+    var myActor = stage.addChild(new Actor("#000000",50,50));
     myActor.x = 100;
     myActor.y = 100;
+
+    var target = stage.addChild(new Actor("#FF0000",50,50));
+    target.x = 400;
+    target.y = 400;
+
+
     var up = false;
     var down = false;
     var left = false;
@@ -52,26 +68,15 @@ function init() {
         if (key.isPressed('right') || key.isPressed('d')) {
             myActor.moveRight(event.delta);
         }
+        if (checkCollision(myActor, target)){
+            console.log("hit")
+            target.x = Math.random()*500
+            target.y = Math.random()*500
+        }
+
     }
 }
 
-/*
-function init() {
-    var stage = new createjs.Stage("demoCanvas");
-    var circle = new createjs.Shape();
-    circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 50);
-    circle.x = 100;
-    circle.y = 100;
-    stage.addChild(circle);
-    stage.update();
-
-    circle.addEventListener("click", function(e){
-        console.log("hello")
-        circle.x += 50
-        stage.update()
-    })
-}
-*/
 
 
 

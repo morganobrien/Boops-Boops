@@ -38,6 +38,11 @@ var p = createjs.extend(Actor, createjs.Shape);
 
 window.Actor = createjs.promote(Actor, "Shape");
 
+
+
+//Actor.prototype = new createjs.Shape();
+}());
+
 pixelsPerSecond = 100;
 movementCalculation = function(delta) {
     return (delta)/1000*pixelsPerSecond;

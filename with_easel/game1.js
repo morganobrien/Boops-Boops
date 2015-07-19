@@ -152,6 +152,16 @@ function init1player() {
 
     function tick(event) {
 
+<<<<<<< HEAD
+=======
+        /*if(timer==0){
+            $("#score").remove()
+            header = "<h1 class=centered> Game Over </h1><br>"
+            $("#Body").html(header + "<h4 class=centered>Final Score: " + score + "</h4>")
+            return
+        }*/
+
+>>>>>>> 121e246a3ae22a6a1372ac48aa99cb5a9fc5a308
         if (key.isPressed('up')) {
             moveUp(myActor, event.delta);
         }

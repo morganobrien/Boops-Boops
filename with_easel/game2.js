@@ -161,7 +161,7 @@ function init2player() {
         return
     }, 1000*timer)
 
-    function tick(event) {
+	function tick(event) {
 
         if (key.isPressed('up')) {
             moveUp(myActor, event.delta);

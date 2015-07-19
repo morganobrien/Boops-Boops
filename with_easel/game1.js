@@ -115,15 +115,16 @@ function init1player() {
     setTimeout(function(){
         $("#score").remove()
         $("#mainCanvas").remove()
-        header = "<h1 class=centered> Game Over </h1><br>"
-        $("#Body").html(header + "<h4 class=centered>Final Score: " + score + "</h4>")
+        $("#Body").append("<div id = gameOver class=centered></div>");
+        $("#gameOver").append("<h1 class=centered> Game Over </h1>")
+        $("#gameOver").append("<h4 class=centered>Final Score: " + score + "</h4>")
         playAgain = "<button class = centered onclick = init1player();> Play Again? </button>"
         $(playAgain).addClass("btn-default");
         $(playAgain).addClass("btn");
         $(playAgain).addClass("centered")
 
 
-        $("#Body").append(playAgain)
+        $("#gameOver").append(playAgain)
         clearInterval(countdown)
         return
     }, 1000*timer)

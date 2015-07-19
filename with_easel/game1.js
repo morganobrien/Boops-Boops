@@ -75,7 +75,7 @@ function init1player() {
     $("#Body").append("<h1><div id= score class = label label-default></div></h1>");
     $("#Body").append("<canvas id=mainCanvas width=500 height=500></canvas>");
 
-    $(".title").remove();
+    $(".centered").remove();
     $(".btn").remove();
 
     var stage = new createjs.Stage("mainCanvas");
@@ -106,20 +106,36 @@ function init1player() {
     createjs.Ticker.addEventListener("tick", stage);
     createjs.Ticker.addEventListener("tick", tick);
 
-    setInterval(function (){
+    countdown = setInterval(function (){
         if(timer>0){
             timer -= 1
         }
     }, 1000);
 
+    setTimeout(function(){
+        $("#score").remove()
+        $("#mainCanvas").remove()
+        header = "<h1 class=centered> Game Over </h1><br>"
+        $("#Body").html(header + "<h4 class=centered>Final Score: " + score + "</h4>")
+        playAgain = "<button class = centered onclick = init1player();> Play Again? </button>"
+        $(playAgain).addClass("btn-default");
+        $(playAgain).addClass("btn");
+        $(playAgain).addClass("centered")
+
+
+        $("#Body").append(playAgain)
+        clearInterval(countdown)
+        return
+    }, 1000*timer)
+
     function tick(event) {
 
-        if(timer==0){
+        /*if(timer==0){
             $("#score").remove()
-            header = "<h1 class=title> Game Over </h1><br>"
-            $("#Body").html(header + "<h4 class=title>Final Score: " + score + "</h4>")
+            header = "<h1 class=centered> Game Over </h1><br>"
+            $("#Body").html(header + "<h4 class=centered>Final Score: " + score + "</h4>")
             return
-        }
+        }*/
         if (key.isPressed('up')) {
             moveUp(myActor, event.delta);
         }

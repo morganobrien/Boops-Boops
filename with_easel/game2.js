@@ -77,12 +77,13 @@ function checkCollisionWithCircle(rect, circle){
 }
 
 function init2player() {
+    $(".home").remove();
+    $("#Body").html("");
 
     $("#Body").append("<h1><div id= score class = label label-default></div></h1>");
     $("#Body").append("<canvas id=mainCanvas width=500 height=500></canvas>");
 
-    $(".title").remove();
-    $(".btn").remove();
+
 
     var stage = new createjs.Stage("mainCanvas");
     var myActor = stage.addChild(new createjs.Shape());
@@ -101,7 +102,7 @@ function init2player() {
     s2.y = 200;
     score2 =0
 
-    timer = 30
+    timer = 3
 
     target = stage.addChild(new createjs.Shape());
     target.r = 45;
@@ -120,28 +121,39 @@ function init2player() {
     createjs.Ticker.addEventListener("tick", stage);
     createjs.Ticker.addEventListener("tick", tick);
 
-    setInterval(function (){
+    countdown = setInterval(function (){
         if(timer>0){
             timer -= 1
         }
     }, 1000);
 
-	function tick(event) {
-
-        if(timer==0){
-            $("#score").remove()
-            if (score1 > score2){
-                header = "<h1 class=title>Team 1 is the winner</h1>"
-            }
-            else if (score2 > score1){
-                header = "<h1 class=title>Team 2 is the winner</h1>"
-            }
-            else{
-                header = "<h1 class=title>It's a tie</h1>"
-            }
-            $("#Body").html(header + "<h4 class=title>Team 1 Final Score: " + score1 + "<br>Team 2 Final Score: " + score2 +"</h4>")
-            return
+    setTimeout(function(){
+        $("#score").remove()
+        $("#mainCanvas").remove()
+        if (score1 > score2){
+            $("#Body").append("<h1 class=centered>Team 1 is the winner</h1>")
         }
+        else if (score2 > score1){
+            $("#Body").append("<h1 class=centered>Team 2 is the winner</h1>")
+        }
+        else{
+            $("#Body").append("<h1 class=centered>It's a tie</h1>")
+        }
+        $("#Body").append("<h4 class=centered>Team 1 Final Score: " + score1 + "<br>Team 2 Final Score: " + score2 +"</h4>")
+        playAgain = "<button class = centered onclick = init2player();> Play Again? </button>"
+        $(playAgain).addClass("btn-default");
+        $(playAgain).addClass("btn");
+        $(playAgain).addClass("centered")
+
+
+        $("#Body").append(playAgain)
+        clearInterval(countdown)
+        return
+    }, 1000*timer)
+
+
+
+	function tick(event) {
         if (key.isPressed('up')) {
             moveUp(myActor, event.delta);
         }

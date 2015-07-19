@@ -229,13 +229,12 @@ function init2player() {
 
 
 function init(e){
+    $("#Body").removeAttr('onkeydown');
 
     if(e.keyCode == 39){
-        $("#Body").removeAttr('onkeydown');
         init2player();
     }
     else if(e.keyCode == 37){
-        $("#Body").removeAttr('onkeydown');
         init1player();
     }
 }

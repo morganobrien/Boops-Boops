@@ -76,7 +76,13 @@ function checkCollisionWithCircle(rect, circle){
     return (dx*dx+dy*dy<=(circle.r*circle.r));
 }
 
-function init() {
+function init2player() {
+
+    $("#Body").append("<h1><div id= score class = label label-default></div></h1>");
+    $("#Body").append("<canvas id=mainCanvas width=500 height=500></canvas>");
+
+    $(".title").remove();
+    $(".btn").remove();
 
     var stage = new createjs.Stage("mainCanvas");
     var myActor = stage.addChild(new createjs.Shape());
@@ -95,7 +101,7 @@ function init() {
     s2.y = 200;
     score2 =0
 
-    timer = 30
+    timer = 3
 
     target = stage.addChild(new createjs.Shape());
     target.r = 45;
@@ -125,15 +131,15 @@ function init() {
         if(timer==0){
             $("#score").remove()
             if (score1 > score2){
-                header = "<h1>Team 1 is the winner</h1>"
+                header = "<h1 class=title>Team 1 is the winner</h1>"
             }
             else if (score2 > score1){
-                header = "<h1>Team 2 is the winner</h1>"
+                header = "<h1 class=title>Team 2 is the winner</h1>"
             }
             else{
-                header = "<h1>It's a tie</h1>"
+                header = "<h1 class=title>It's a tie</h1>"
             }
-            $("#Body").html(header + "<h4>Team 1 Final Score: " + score1 + "<br>Team 2 Final Score: " + score2 +"</h4>")
+            $("#Body").html(header + "<h4 class=title>Team 1 Final Score: " + score1 + "<br>Team 2 Final Score: " + score2 +"</h4>")
             return
         }
         if (key.isPressed('up')) {
@@ -180,6 +186,7 @@ function init() {
 
     }
 }
+
 
 
 

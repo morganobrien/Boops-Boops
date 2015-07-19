@@ -6,10 +6,19 @@
 
 #score {
     border: solid 1px #000;
+    background: #d3d3d3;
     float: left;
     margin-right: 20px;
 }
 
 #Body {
     margin-left:20px;
+}
+
+.buttons {
+    text-align:center
+}
+
+.title {
+    text-align:center
 }

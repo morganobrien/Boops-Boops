@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,15 +7,33 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+        if(typeof(Storage) !== "undefined") {
+            if(! localStorage.getItem("High Score 1")){
+                localStorage.setItem("High Score 1", JSON.stringify(["Name", "0"]))
+            }
+            if(! localStorage.getItem("High Score 2")){
+                localStorage.setItem("High Score 2", JSON.stringify(["Name", "0"]))
+            }
+            if(! localStorage.getItem("High Score 3")){
+                localStorage.setItem("High Score 3", JSON.stringify(["Name", "0"]))
+            }
+        } else {
+            console.log("no local storage")
+        }
+    </script>
     <script src="game1.js"></script>
     <script src="game2.js"></script>
+    <script src="game3.js"></script>
   </head>
   <body id= "Body" onkeydown="init(event);">
     <h1 class="centered home">Welcome to Boops boops</h1>
     <h2 class="buttons">
       <button class="btn btn-default home" onclick="init1player();"> Play with one team </button>
       <button class="btn btn-default home" onclick="init2player();"> Play with two teams </button>
+      <button class="btn btn-default home" onclick="init1playerboops();"> Play with one team with boops and plankton! </button>
     </h2>
   </body>
 </html>

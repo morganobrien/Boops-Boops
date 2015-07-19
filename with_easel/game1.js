@@ -69,6 +69,23 @@ function checkCollisionWithCircle(rect, circle){
     var dy=distY-rect.height/2;
     return (dx*dx+dy*dy<=(circle.r*circle.r));
 }
+function reorderHighScores(name, score){
+    if (score > parseInt(JSON.parse(localStorage.getItem("High Score 1"))[1])){
+        console.log("Changed all")
+        localStorage.setItem("High Score 3", localStorage.getItem("High Score 2"));
+        localStorage.setItem("High Score 2", localStorage.getItem("High Score 1"));
+        localStorage.setItem("High Score 1", JSON.stringify([name, score]));
+    }
+    else if (score > parseInt(JSON.parse(localStorage.getItem("High Score 2"))[1])){
+        console.log("Replaced 2nd and 3rd")
+        localStorage.setItem("High Score 3", localStorage.getItem("High Score 2"));
+        localStorage.setItem("High Score 2", JSON.stringify([name, score]));
+    }
+    else{
+        console.log("Changed 3rd")
+        localStorage.setItem("High Score 3", JSON.stringify([name, score]));
+    }
+}
 
 function init1player() {
 
@@ -118,6 +135,19 @@ function init1player() {
         $("#Body").append("<div id = gameOver class=centered></div>");
         $("#gameOver").append("<h1 class=centered> Game Over </h1>")
         $("#gameOver").append("<h4 class=centered>Final Score: " + score + "</h4>")
+        if (score > parseInt(JSON.parse(localStorage.getItem("High Score 3"))[1])){
+            var newName = prompt("Please enter your team name", "New Name");
+            if (newName != null) {
+                reorderHighScores(newName, score)
+            }
+            else {
+                reorderHighScores("Name", score)
+            }
+            $("#gameOver").append("<br> <h2>!! New High Score !!</h2>")
+        }
+        $("#gameOver").append("<br>" + JSON.parse(localStorage.getItem("High Score 1"))[0] + ": " + JSON.parse(localStorage.getItem("High Score 1"))[1] + "<br>")
+        $("#gameOver").append("<br>" + JSON.parse(localStorage.getItem("High Score 2"))[0] + ": " + JSON.parse(localStorage.getItem("High Score 2"))[1] + "<br>")
+        $("#gameOver").append("<br>" + JSON.parse(localStorage.getItem("High Score 3"))[0] + ": " + JSON.parse(localStorage.getItem("High Score 3"))[1] + "<br>")
         playAgain = "<button class = centered onclick = init1player();> Play Again? </button>"
         $(playAgain).addClass("btn-default");
         $(playAgain).addClass("btn");
@@ -141,7 +171,6 @@ function init1player() {
             $("#Body").html(header + "<h4 class=centered>Final Score: " + score + "</h4>")
             return
         }*/
-
         if (key.isPressed('up')) {
             moveUp(myActor, event.delta);
         }

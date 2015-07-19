@@ -2,3 +2,10 @@
     border: solid 1px #000;
     background: #d3d3d3;
 }
+
+#score {
+    border: solid 1px #000;
+    background: #d3d3d3;
+    height:50px;
+    width:200px;
+}

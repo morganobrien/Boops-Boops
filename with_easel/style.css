@@ -1,13 +1,15 @@
-#mainCanvas{
+#mainCanvas {
     border: solid 1px #000;
     background: #d3d3d3;
+    border-radius: 5px;
 }
 
 #score {
     border: solid 1px #000;
-    background: #d3d3d3;
-    height:55px;
-    width:200px;
     float: left;
     margin-right: 20px;
+}
+
+#Body {
+    margin-left:20px;
 }

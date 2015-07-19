@@ -119,10 +119,10 @@ function init() {
             timer -= 1
         }
     }, 1000);
-    
+
 	function tick(event) {
 
-
+        if(timer==0){
             $("#score").remove()
             if (score1 > score2){
                 header = "<h1>Team 1 is the winner</h1><br>"

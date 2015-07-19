@@ -22,3 +22,10 @@
 .centered {
     text-align:center
 }
+    float: left;
+    margin-right: 20px;
+}
+
+#Body {
+    margin-left:20px;
+}

@@ -137,6 +137,7 @@ function init1player() {
             $("#Body").html(header + "<h4 class=centered>Final Score: " + score + "</h4>")
             return
         }*/
+
         if (key.isPressed('up')) {
             moveUp(myActor, event.delta);
         }

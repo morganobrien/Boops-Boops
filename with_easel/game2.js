@@ -130,23 +130,24 @@ function init2player() {
     setTimeout(function(){
         $("#score").remove()
         $("#mainCanvas").remove()
+        $("#Body").append("<div id = gameOver class=centered></div>");
         if (score1 > score2){
-            $("#Body").append("<h1 class=centered>Team 1 is the winner</h1>")
+            $("#gameOver").append("<h1 class=centered>Team 1 is the winner</h1>")
         }
         else if (score2 > score1){
-            $("#Body").append("<h1 class=centered>Team 2 is the winner</h1>")
+            $("#gameOver").append("<h1 class=centered>Team 2 is the winner</h1>")
         }
         else{
-            $("#Body").append("<h1 class=centered>It's a tie</h1>")
+            $("#gameOver").append("<h1 class=centered>It's a tie</h1>")
         }
-        $("#Body").append("<h4 class=centered>Team 1 Final Score: " + score1 + "<br>Team 2 Final Score: " + score2 +"</h4>")
+        $("#gameOver").append("<h4 class=centered>Team 1 Final Score: " + score1 + "<br>Team 2 Final Score: " + score2 +"</h4>")
         playAgain = "<button class = centered onclick = init2player();> Play Again? </button>"
         $(playAgain).addClass("btn-default");
         $(playAgain).addClass("btn");
         $(playAgain).addClass("centered")
 
 
-        $("#Body").append(playAgain)
+        $("#gameOver").append(playAgain)
         clearInterval(countdown)
         return
     }, 1000*timer)

@@ -113,8 +113,18 @@ function init() {
     createjs.Ticker.setFPS(30);
     createjs.Ticker.addEventListener("tick", stage);
     createjs.Ticker.addEventListener("tick", tick);
+    setInterval(function (){
+        if(timer>0){
+            timer -= 1
+        }
+
+        if(timer == 0){
+            $("#mainCanvas").remove()
+
+        }
+    }, 1000);
     function tick(event) {
-        setInterval(function () {timer -= 1}, 1000);
+
         if (key.isPressed('up')) {
             moveUp(myActor, event.delta);
         }
@@ -154,6 +164,8 @@ function init() {
             target.y = Math.random()*500
             score2 += 1
         }
+
+    $("#score").html("Team 1 Score: " + score1 + "<br> Team 2 Score: " + score2 + "<br> Time Left: " + timer);
 
     }
 }

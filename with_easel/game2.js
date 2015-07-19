@@ -43,8 +43,6 @@ window.Actor = createjs.promote(Actor, "Shape");
 //Actor.prototype = new createjs.Shape();
 }());
 
-//window.Actor = Actor;
-
 pixelsPerSecond = 100;
 movementCalculation = function(delta) {
     return (delta)/1000*pixelsPerSecond;
@@ -87,9 +85,14 @@ function checkCollisionWithCircle(rect, circle){
     return (dx*dx+dy*dy<=(circle.r*circle.r));
 }
 
-function init() {
+function init2player() {
+    $(".home").remove();
+    $("#Body").html("");
 
-    var stage = new createjs.Stage("mainCanvas");
+    $("#Body").append("<h1><div id= score class = label label-default></div></h1>");
+    $("#Body").append("<canvas id=mainCanvas width=500 height=500></canvas>");
+
+     var stage = new createjs.Stage("mainCanvas");
     //var myActor = stage.addChild(new createjs.Shape());
     var myActor = stage.addChild(new Actor("#000000", 50, 50));
     //myActor.width=50
@@ -107,8 +110,8 @@ function init() {
     s2.x = 200;
     s2.y = 200;
     score2 =0
+    timer = 3
 
-    timer = 30
 
     target = stage.addChild(new createjs.Shape());
     target.r = 45;
@@ -127,28 +130,39 @@ function init() {
     createjs.Ticker.addEventListener("tick", stage);
     createjs.Ticker.addEventListener("tick", tick);
 
-    setInterval(function (){
+    countdown = setInterval(function (){
         if(timer>0){
             timer -= 1
         }
     }, 1000);
 
+    setTimeout(function(){
+        $("#score").remove()
+        $("#mainCanvas").remove()
+        $("#Body").append("<div id = gameOver class=centered></div>");
+        if (score1 > score2){
+            $("#gameOver").append("<h1 class=centered>Team 1 is the winner</h1>")
+        }
+        else if (score2 > score1){
+            $("#gameOver").append("<h1 class=centered>Team 2 is the winner</h1>")
+        }
+        else{
+            $("#gameOver").append("<h1 class=centered>It's a tie</h1>")
+        }
+        $("#gameOver").append("<h4 class=centered>Team 1 Final Score: " + score1 + "<br>Team 2 Final Score: " + score2 +"</h4>")
+        playAgain = "<button class = centered onclick = init2player();> Play Again? </button>"
+        $(playAgain).addClass("btn-default");
+        $(playAgain).addClass("btn");
+        $(playAgain).addClass("centered")
+
+
+        $("#gameOver").append(playAgain)
+        clearInterval(countdown)
+        return
+    }, 1000*timer)
+
     function tick(event) {
 
-        if(timer==0){
-            $("#score").remove()
-            if (score1 > score2){
-                header = "<h1>Team 1 is the winner</h1>"
-            }
-            else if (score2 > score1){
-                header = "<h1>Team 2 is the winner</h1>"
-            }
-            else{
-                header = "<h1>It's a tie</h1>"
-            }
-            $("#Body").html(header + "<h4>Team 1 Final Score: " + score1 + "<br>Team 2 Final Score: " + score2 +"</h4>")
-            return
-        }
         if (key.isPressed('up')) {
             moveUp(myActor, event.delta);
         }

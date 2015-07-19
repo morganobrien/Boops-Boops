@@ -84,7 +84,13 @@ function reorderHighScores(score){
     }
 }
 
-function init() {
+function init1player() {
+
+    $("#Body").append("<h1><div id= score class = label label-default></div></h1>");
+    $("#Body").append("<canvas id=mainCanvas width=500 height=500></canvas>");
+
+    $(".centered").remove();
+    $(".btn").remove();
 
     var stage = new createjs.Stage("mainCanvas");
     var myActor = stage.addChild(new createjs.Shape());
@@ -114,30 +120,38 @@ function init() {
     createjs.Ticker.addEventListener("tick", stage);
     createjs.Ticker.addEventListener("tick", tick);
 
-    setInterval(function (){
+    countdown = setInterval(function (){
         if(timer>0){
             timer -= 1
         }
     }, 1000);
 
+    setTimeout(function(){
+        $("#score").remove()
+        $("#mainCanvas").remove()
+        $("#Body").append("<div id = gameOver class=centered></div>");
+        $("#gameOver").append("<h1 class=centered> Game Over </h1>")
+        $("#gameOver").append("<h4 class=centered>Final Score: " + score + "</h4>")
+        if (score > parseInt(localStorage.getItem("High Score 3"))){
+            reorderHighScores(score)
+            $("#gameOver").append("<br> <h2>!! New High Score !!</h2>")
+        }
+        $("#gameOver").append("<br> High Score 1: " + localStorage.getItem("High Score 1") + "<br>")
+        $("#gameOver").append("High Score 2: " + localStorage.getItem("High Score 2") + "<br>")
+        $("#gameOver").append("High Score 3: " + localStorage.getItem("High Score 3") + "<br>")
+        playAgain = "<button class = centered onclick = init1player();> Play Again? </button>"
+        $(playAgain).addClass("btn-default");
+        $(playAgain).addClass("btn");
+        $(playAgain).addClass("centered")
+
+
+        $("#gameOver").append(playAgain)
+        clearInterval(countdown)
+        return
+    }, 1000*timer)
+
     function tick(event) {
 
-        if(timer==0){
-            $("#score").remove()
-            body = ""
-            header = "<h1> Game Over </h1><br>"
-            body += header
-            body += "<h4>Final Score: " + score + "</h4>"
-            if (score > parseInt(localStorage.getItem("High Score 3"))){
-                reorderHighScores(score)
-                body += "<br> <h2>!! New High Score !!</h2>"
-            }
-            body += "<br> High Score 1: " + localStorage.getItem("High Score 1") + "<br>"
-            body += "<br> High Score 2: " + localStorage.getItem("High Score 2") + "<br>"
-            body += "<br> High Score 3: " + localStorage.getItem("High Score 3") + "<br>"
-            $("#Body").html(body)
-            return 0
-        }
         if (key.isPressed('up')) {
             moveUp(myActor, event.delta);
         }

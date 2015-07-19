@@ -113,18 +113,28 @@ function init() {
     createjs.Ticker.setFPS(30);
     createjs.Ticker.addEventListener("tick", stage);
     createjs.Ticker.addEventListener("tick", tick);
+
     setInterval(function (){
         if(timer>0){
             timer -= 1
         }
-
-        if(timer == 0){
-            $("#mainCanvas").remove()
-
-        }
     }, 1000);
     function tick(event) {
-
+        if(timer == 0){
+            $("#mainCanvas").remove()
+            $("#score").remove()
+            if (score1 > score2){
+                header = "<h1>Team 1 is the winner</h1><br>"
+            }
+            else if (score2 > score1){
+                header = "<h1>Team 2 is the winner</h1><br>"
+            }
+            else{
+                header = "<h1>It's a tie</h1><br>"
+            }
+            $("#Body").html(header + "Team 1 Final Score: " + score1 + "<br>Team 2 Final Score: " + score2)
+            return
+        }
         if (key.isPressed('up')) {
             moveUp(myActor, event.delta);
         }

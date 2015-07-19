@@ -117,11 +117,6 @@ function init() {
         if(timer>0){
             timer -= 1
         }
-
-        if(timer == 0){
-            $("#mainCanvas").remove()
-
-        }
     }, 1000);
     function tick(event) {
 

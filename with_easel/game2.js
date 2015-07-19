@@ -85,6 +85,7 @@ function init() {
     myActor.graphics.beginFill("#000000").drawRect(0,0,myActor.width,myActor.height);
     myActor.x = 100;
     myActor.y = 100;
+    score1 = 0
 
     var s2 = stage.addChild(new createjs.Shape());
     s2.width=50
@@ -92,6 +93,9 @@ function init() {
     s2.graphics.beginFill("#FF0000").drawRect(0,0,s2.width,s2.height);
     s2.x = 200;
     s2.y = 200;
+    score2 =0
+
+    timer = 30
 
     target = stage.addChild(new createjs.Shape());
     target.r = 45;
@@ -110,6 +114,7 @@ function init() {
     createjs.Ticker.addEventListener("tick", stage);
     createjs.Ticker.addEventListener("tick", tick);
     function tick(event) {
+        setInterval(function () {timer -= 1}, 1000);
         if (key.isPressed('up')) {
             moveUp(myActor, event.delta);
         }
@@ -135,11 +140,19 @@ function init() {
             moveRight(s2,event.delta);
         }
 
-        if (checkCollisionWithCircle(myActor, target) || checkCollisionWithCircle(s2, target)){
+        if (checkCollisionWithCircle(myActor, target)){
             console.log("hit")
 
             target.x = Math.random()*500
             target.y = Math.random()*500
+            score1 += 1
+        }
+        if (checkCollisionWithCircle(s2, target)){
+            console.log("hit")
+
+            target.x = Math.random()*500
+            target.y = Math.random()*500
+            score2 += 1
         }
 
     }

@@ -55,12 +55,6 @@ moveRight = function(s,delta) {
         s.x += movementCalculation(delta);
 }
 
-
-function checkCollision(rect1, rect2){
-    if ( rect1.x >= rect2.x + rect2.width || rect1.x + rect1.width <= rect2.x || rect1.y >= rect2.y + rect2.height || rect1.y + rect1.height <= rect2.y ) return false;
-    return true;
-}
-
 function checkCollisionWithCircle(rect, circle){
     var distX = Math.abs(circle.x - rect.x-rect.width/2);
     var distY = Math.abs(circle.y - rect.y-rect.height/2);
@@ -76,13 +70,7 @@ function checkCollisionWithCircle(rect, circle){
     return (dx*dx+dy*dy<=(circle.r*circle.r));
 }
 
-function init2player() {
-
-    $("#Body").append("<h1><div id= score class = label label-default></div></h1>");
-    $("#Body").append("<canvas id=mainCanvas width=500 height=500></canvas>");
-
-    $(".title").remove();
-    $(".btn").remove();
+function init() {
 
     var stage = new createjs.Stage("mainCanvas");
     var myActor = stage.addChild(new createjs.Shape());
@@ -91,17 +79,9 @@ function init2player() {
     myActor.graphics.beginFill("#000000").drawRect(0,0,myActor.width,myActor.height);
     myActor.x = 100;
     myActor.y = 100;
-    score1 = 0
+    score = 0
 
-    var s2 = stage.addChild(new createjs.Shape());
-    s2.width=50
-    s2.height=50
-    s2.graphics.beginFill("#FF0000").drawRect(0,0,s2.width,s2.height);
-    s2.x = 200;
-    s2.y = 200;
-    score2 =0
-
-    timer = 3
+    timer = 30
 
     target = stage.addChild(new createjs.Shape());
     target.r = 45;
@@ -126,20 +106,12 @@ function init2player() {
         }
     }, 1000);
 
-	function tick(event) {
+    function tick(event) {
 
         if(timer==0){
             $("#score").remove()
-            if (score1 > score2){
-                header = "<h1 class=title>Team 1 is the winner</h1>"
-            }
-            else if (score2 > score1){
-                header = "<h1 class=title>Team 2 is the winner</h1>"
-            }
-            else{
-                header = "<h1 class=title>It's a tie</h1>"
-            }
-            $("#Body").html(header + "<h4 class=title>Team 1 Final Score: " + score1 + "<br>Team 2 Final Score: " + score2 +"</h4>")
+            header = "<h1> Game Over </h1><br>"
+            $("#Body").html(header + "<h4>Final Score: " + score + "</h4>")
             return
         }
         if (key.isPressed('up')) {
@@ -154,18 +126,6 @@ function init2player() {
         if (key.isPressed('right')) {
             moveRight(myActor,event.delta);
         }
-        if (key.isPressed('w')) {
-            moveUp(s2, event.delta);
-        }
-        if (key.isPressed('s')) {
-            moveDown(s2,event.delta);
-        }
-        if (key.isPressed('a')) {
-            moveLeft(s2,event.delta);
-        }
-        if (key.isPressed('d')) {
-            moveRight(s2,event.delta);
-        }
 
         if (checkCollisionWithCircle(myActor, target)){
             console.log("hit")
@@ -173,30 +133,21 @@ function init2player() {
             while (empty == false){
                 target.x = Math.random()*500
                 target.y = Math.random()*500
-                if ((! checkCollisionWithCircle(myActor, target)) && (! checkCollisionWithCircle(s2, target))){
+                if ((! checkCollisionWithCircle(myActor, target))){
                     empty = true
                 }
             }
-            score1 += 1
+            score += 1
         }
-        if (checkCollisionWithCircle(s2, target)){
-            console.log("hit")
-            empty = false
-            while (empty == false){
-                target.x = Math.random()*500
-                target.y = Math.random()*500
-                if ((! checkCollisionWithCircle(myActor, target)) && (! checkCollisionWithCircle(s2, target))){
-                    empty = true
-                }
-            }
-            score2 += 1
-        }
-
-    $("#score").html("Team 1 Score: " + score1 + "<br> Team 2 Score: " + score2 + "<br> Time Left: " + timer);
+    if (timer < 10){
+        $("#score").html("Score: " + score + "<br> Time Left: 0" + timer);
+    }
+    else{
+        $("#score").html("Score: " + score + "<br> Time Left: " + timer);
+    }
 
     }
 }
-
 
 
 

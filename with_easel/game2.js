@@ -119,20 +119,21 @@ function init() {
             timer -= 1
         }
     }, 1000);
-    function tick(event) {
-        if(timer == 0){
-            $("#mainCanvas").remove()
+
+	function tick(event) {
+
+        if(timer==0){
             $("#score").remove()
             if (score1 > score2){
-                header = "<h1>Team 1 is the winner</h1><br>"
+                header = "<h1>Team 1 is the winner</h1>"
             }
             else if (score2 > score1){
-                header = "<h1>Team 2 is the winner</h1><br>"
+                header = "<h1>Team 2 is the winner</h1>"
             }
             else{
-                header = "<h1>It's a tie</h1><br>"
+                header = "<h1>It's a tie</h1>"
             }
-            $("#Body").html(header + "Team 1 Final Score: " + score1 + "<br>Team 2 Final Score: " + score2)
+            $("#Body").html(header + "<h4>Team 1 Final Score: " + score1 + "<br>Team 2 Final Score: " + score2 +"</h4>")
             return
         }
         if (key.isPressed('up')) {

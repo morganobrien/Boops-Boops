@@ -86,6 +86,7 @@ function checkCollisionWithCircle(rect, circle){
 }
 
 function init2player() {
+    $("#Body").removeAttr('onkeydown');
     $(".home").remove();
     $("#Body").html("");
 
@@ -226,7 +227,6 @@ function init2player() {
 
     }
 }
-
 
 function init(e){
     $("#Body").removeAttr('onkeydown');

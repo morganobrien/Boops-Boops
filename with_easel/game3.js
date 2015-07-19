@@ -18,7 +18,7 @@ moveRight = function(s,delta) {
     if(s.x+movementCalculation(delta)+s.height < 500)
         s.x += movementCalculation(delta);
 }
-
+/*
 function reorderHighScores(score){
     if (score > parseInt(localStorage.getItem("High Score 1"))){
         localStorage.setItem("High Score 2", localStorage.getItem("High Score 1"));
@@ -32,7 +32,7 @@ function reorderHighScores(score){
     else{
         localStorage.setItem("High Score 3", String(score));
     }
-}
+}*/
 
 function checkRectCollision(rect1, rect2) {
     if ( rect1.x >= rect2.x + rect2.width || rect1.x + rect1.width <= rect2.x || rect1.y >= rect2.y + rect2.height || rect1.y + rect1.height <= rect2.y ) return false;
@@ -44,6 +44,7 @@ function randrange(min, max) {
 }
 
 function init1playerboops() {
+    $("#Body").removeAttr('onkeydown');
 
     $("#Body").append("<h1><div id= score class = label label-default></div></h1>");
     $("#Body").append("<canvas id=mainCanvas width=500 height=500></canvas>");
@@ -94,6 +95,7 @@ function init1playerboops() {
         $("#Body").append("<div id = gameOver class=centered></div>");
         $("#gameOver").append("<h1 class=centered> Game Over </h1>")
         $("#gameOver").append("<h4 class=centered>Final Score: " + score + "</h4>")
+        /*
         if (score > parseInt(JSON.parse(localStorage.getItem("High Score 3"))[1])){
             var newName = prompt("Please enter your team name", "New Name");
             if (newName != null) {
@@ -107,6 +109,7 @@ function init1playerboops() {
         $("#gameOver").append("<br>" + JSON.parse(localStorage.getItem("High Score 1"))[0] + ": " + JSON.parse(localStorage.getItem("High Score 1"))[1] + "<br>")
         $("#gameOver").append("<br>" + JSON.parse(localStorage.getItem("High Score 2"))[0] + ": " + JSON.parse(localStorage.getItem("High Score 2"))[1] + "<br>")
         $("#gameOver").append("<br>" + JSON.parse(localStorage.getItem("High Score 3"))[0] + ": " + JSON.parse(localStorage.getItem("High Score 3"))[1] + "<br>")
+        */
         playAgain = "<button class = centered onclick = init1player();> Play Again? </button>"
         $(playAgain).addClass("btn-default");
         $(playAgain).addClass("btn");

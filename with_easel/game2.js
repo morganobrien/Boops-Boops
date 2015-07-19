@@ -162,16 +162,26 @@ function init() {
 
         if (checkCollisionWithCircle(myActor, target)){
             console.log("hit")
-
-            target.x = Math.random()*500
-            target.y = Math.random()*500
+            empty = false
+            while (empty == false){
+                target.x = Math.random()*500
+                target.y = Math.random()*500
+                if ((! checkCollisionWithCircle(myActor, target)) && (! checkCollisionWithCircle(s2, target))){
+                    empty = true
+                }
+            }
             score1 += 1
         }
         if (checkCollisionWithCircle(s2, target)){
             console.log("hit")
-
-            target.x = Math.random()*500
-            target.y = Math.random()*500
+            empty = false
+            while (empty == false){
+                target.x = Math.random()*500
+                target.y = Math.random()*500
+                if ((! checkCollisionWithCircle(myActor, target)) && (! checkCollisionWithCircle(s2, target))){
+                    empty = true
+                }
+            }
             score2 += 1
         }
 

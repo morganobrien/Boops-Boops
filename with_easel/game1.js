@@ -126,6 +126,10 @@ function init1player() {
 
         $("#gameOver").append(playAgain)
         clearInterval(countdown)
+
+        setTimeout(function(){
+            $("#Body").attr("onkeydown","init(event)")
+        }, 3000)
         return
     }, 1000*timer)
 
@@ -172,7 +176,5 @@ function init1player() {
 
     }
 }
-
-
 
 

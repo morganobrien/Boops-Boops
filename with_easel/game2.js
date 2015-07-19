@@ -140,6 +140,8 @@ function init2player() {
         $("#score").remove()
         $("#mainCanvas").remove()
         $("#Body").append("<div id = gameOver class=centered></div>");
+
+
         if (score1 > score2){
             $("#gameOver").append("<h1 class=centered>Team 1 is the winner</h1>")
         }
@@ -150,14 +152,21 @@ function init2player() {
             $("#gameOver").append("<h1 class=centered>It's a tie</h1>")
         }
         $("#gameOver").append("<h4 class=centered>Team 1 Final Score: " + score1 + "<br>Team 2 Final Score: " + score2 +"</h4>")
-        playAgain = "<button class = centered onclick = init2player();> Play Again? </button>"
+        playAgain = "<button class = btn-default btn onclick = init2player();> Play Again? </button>"
         $(playAgain).addClass("btn-default");
         $(playAgain).addClass("btn");
         $(playAgain).addClass("centered")
 
 
+
         $("#gameOver").append(playAgain)
+
+        setTimeout(function(){
+            $("#Body").attr("onkeydown","init(event)")
+        }, 3000)
+
         clearInterval(countdown)
+
         return
     }, 1000*timer)
 
@@ -215,5 +224,18 @@ function init2player() {
 
     $("#score").html("Team 1 Score: " + score1 + "<br> Team 2 Score: " + score2 + "<br> Time Left: " + timer);
 
+    }
+}
+
+
+function init(e){
+
+    if(e.keyCode == 39){
+        $("#Body").removeAttr('onkeydown');
+        init2player();
+    }
+    else if(e.keyCode == 37){
+        $("#Body").removeAttr('onkeydown');
+        init1player();
     }
 }

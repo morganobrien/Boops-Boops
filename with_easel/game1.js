@@ -70,7 +70,13 @@ function checkCollisionWithCircle(rect, circle){
     return (dx*dx+dy*dy<=(circle.r*circle.r));
 }
 
-function init() {
+function init1player() {
+
+    $("#Body").append("<h1><div id= score class = label label-default></div></h1>");
+    $("#Body").append("<canvas id=mainCanvas width=500 height=500></canvas>");
+
+    $(".title").remove();
+    $(".btn").remove();
 
     var stage = new createjs.Stage("mainCanvas");
     var myActor = stage.addChild(new createjs.Shape());
@@ -110,8 +116,8 @@ function init() {
 
         if(timer==0){
             $("#score").remove()
-            header = "<h1> Game Over </h1><br>"
-            $("#Body").html(header + "<h4>Final Score: " + score + "</h4>")
+            header = "<h1 class=title> Game Over </h1><br>"
+            $("#Body").html(header + "<h4 class=title>Final Score: " + score + "</h4>")
             return
         }
         if (key.isPressed('up')) {

@@ -101,7 +101,7 @@ function init2player() {
     s2.y = 200;
     score2 =0
 
-    timer = 3
+    timer = 30
 
     target = stage.addChild(new createjs.Shape());
     target.r = 45;

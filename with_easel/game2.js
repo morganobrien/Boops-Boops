@@ -125,10 +125,10 @@ function init() {
         if(timer==0){
             $("#score").remove()
             if (score1 > score2){
-                header = "<h1>Team 1 is the winner</h1><br>"
+                header = "<h1>Team 1 is the winner</h1>"
             }
             else if (score2 > score1){
-                header = "<h1>Team 2 is the winner</h1><br>"
+                header = "<h1>Team 2 is the winner</h1>"
             }
             else{
                 header = "<h1>It's a tie</h1>"

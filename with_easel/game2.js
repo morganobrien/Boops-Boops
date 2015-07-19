@@ -1,5 +1,6 @@
 
-var Actor = function(color, w, h) {
+/*
+function Actor(color, w, h) {
     this.pixelsPerSecond = 100;
 
     this.width = w;
@@ -27,13 +28,32 @@ var Actor = function(color, w, h) {
     }
 }
 
-function move(shape){
-
-}
 
 Actor.prototype = new createjs.Shape();
+*/
 
 //window.Actor = Actor;
+
+pixelsPerSecond = 100;
+movementCalculation = function(delta) {
+    return (delta)/1000*pixelsPerSecond;
+}
+moveUp = function(s, delta) {
+    if(s.y-movementCalculation(delta) > 0)
+        s.y -= movementCalculation(delta);
+}
+moveDown = function(s, delta) {
+    if(s.y+ movementCalculation(delta)+s.height < 500)
+        s.y += movementCalculation(delta);
+}
+moveLeft = function(s, delta) {
+    if(s.x-movementCalculation(delta)> 0)
+        s.x -= movementCalculation(delta);
+}
+moveRight = function(s,delta) {
+    if(s.x+movementCalculation(delta)+s.height < 500)
+        s.x += movementCalculation(delta);
+}
 
 
 function checkCollision(rect1, rect2){
@@ -58,10 +78,20 @@ function checkCollisionWithCircle(rect, circle){
 
 function init() {
 
-    var stage = new createjs.Stage("demoCanvas");
-    var myActor = stage.addChild(new Actor("#000000",50,50));
+    var stage = new createjs.Stage("mainCanvas");
+    var myActor = stage.addChild(new createjs.Shape());
+    myActor.width=50
+    myActor.height=50
+    myActor.graphics.beginFill("#000000").drawRect(0,0,myActor.width,myActor.height);
     myActor.x = 100;
     myActor.y = 100;
+
+    var s2 = stage.addChild(new createjs.Shape());
+    s2.width=50
+    s2.height=50
+    s2.graphics.beginFill("#FF0000").drawRect(0,0,s2.width,s2.height);
+    s2.x = 200;
+    s2.y = 200;
 
     target = stage.addChild(new createjs.Shape());
     target.r = 45;
@@ -80,20 +110,34 @@ function init() {
     createjs.Ticker.addEventListener("tick", stage);
     createjs.Ticker.addEventListener("tick", tick);
     function tick(event) {
-        if (key.isPressed('up') || key.isPressed('w')) {
-            myActor.moveUp(event.delta);
+        if (key.isPressed('up')) {
+            moveUp(myActor, event.delta);
         }
-        if (key.isPressed('down') || key.isPressed('s')) {
-            myActor.moveDown(event.delta);
+        if (key.isPressed('down')) {
+            moveDown(myActor,event.delta);
         }
-        if (key.isPressed('left') || key.isPressed('a')) {
-            myActor.moveLeft(event.delta);
+        if (key.isPressed('left')) {
+            moveLeft(myActor,event.delta);
         }
-        if (key.isPressed('right') || key.isPressed('d')) {
-            myActor.moveRight(event.delta);
+        if (key.isPressed('right')) {
+            moveRight(myActor,event.delta);
         }
-        if (checkCollisionWithCircle(myActor, target)){
+        if (key.isPressed('w')) {
+            moveUp(s2, event.delta);
+        }
+        if (key.isPressed('s')) {
+            moveDown(s2,event.delta);
+        }
+        if (key.isPressed('a')) {
+            moveLeft(s2,event.delta);
+        }
+        if (key.isPressed('d')) {
+            moveRight(s2,event.delta);
+        }
+
+        if (checkCollisionWithCircle(myActor, target) || checkCollisionWithCircle(s2, target)){
             console.log("hit")
+
             target.x = Math.random()*500
             target.y = Math.random()*500
         }

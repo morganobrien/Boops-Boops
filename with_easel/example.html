@@ -12,13 +12,13 @@
         <script type="text/javascript">
         if(typeof(Storage) !== "undefined") {
             if(! localStorage.getItem("High Score 1")){
-                localStorage.setItem("High Score 1", "0")
+                localStorage.setItem("High Score 1", JSON.stringify(["Name", "0"]))
             }
             if(! localStorage.getItem("High Score 2")){
-                localStorage.setItem("High Score 2", "0")
+                localStorage.setItem("High Score 2", JSON.stringify(["Name", "0"]))
             }
             if(! localStorage.getItem("High Score 3")){
-                localStorage.setItem("High Score 3", "0")
+                localStorage.setItem("High Score 3", JSON.stringify(["Name", "0"]))
             }
         } else {
             console.log("no local storage")

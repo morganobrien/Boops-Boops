@@ -110,6 +110,7 @@ function init() {
 
         if(timer==0){
             $("#score").remove()
+            header = "<h1> Game Over </h1><br>"
             $("#Body").html(header + "<h4>Final Score: " + score + "</h4>")
             return
         }
@@ -138,8 +139,12 @@ function init() {
             }
             score += 1
         }
-
-    $("#score").html("Score: " + score + "<br> Time Left: " + timer);
+    if (timer < 10){
+        $("#score").html("Score: " + score + "<br> Time Left: 0" + timer);
+    }
+    else{
+        $("#score").html("Score: " + score + "<br> Time Left: " + timer);
+    }
 
     }
 }

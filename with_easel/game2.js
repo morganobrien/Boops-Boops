@@ -1,15 +1,21 @@
+(function () {
 
-/*
-function Actor(color, w, h) {
+    function Actor(color, w, h) {
+    this.Shape_constructor();
+
     this.pixelsPerSecond = 100;
 
     this.width = w;
     this.height = h;
-    this.graphics.beginFill(color).drawRect(0,0,w,h);
+
+    //this.setup();
+
+    // this.graphics.beginFill(color).drawRect(0,0,w,h);
 
     this.movementCalculation = function(delta) {
         return (delta)/1000*this.pixelsPerSecond;
     }
+
     this.moveUp = function(delta) {
         if(this.y-this.movementCalculation(delta) > 0)
             this.y -= this.movementCalculation(delta);
@@ -28,9 +34,14 @@ function Actor(color, w, h) {
     }
 }
 
+var p = createjs.extend(Actor, createjs.Shape);
 
-Actor.prototype = new createjs.Shape();
-*/
+window.Actor = createjs.promote(Actor, "Shape");
+
+
+
+//Actor.prototype = new createjs.Shape();
+}());
 
 //window.Actor = Actor;
 
@@ -79,17 +90,19 @@ function checkCollisionWithCircle(rect, circle){
 function init() {
 
     var stage = new createjs.Stage("mainCanvas");
-    var myActor = stage.addChild(new createjs.Shape());
-    myActor.width=50
-    myActor.height=50
+    //var myActor = stage.addChild(new createjs.Shape());
+    var myActor = stage.addChild(new Actor("#000000", 50, 50));
+    //myActor.width=50
+    //myActor.height=50
     myActor.graphics.beginFill("#000000").drawRect(0,0,myActor.width,myActor.height);
     myActor.x = 100;
     myActor.y = 100;
     score1 = 0
 
-    var s2 = stage.addChild(new createjs.Shape());
-    s2.width=50
-    s2.height=50
+    //var s2 = stage.addChild(new createjs.Shape());
+    var s2 = stage.addChild(new Actor("#FF0000", 50, 50));
+    //s2.width=50
+    //s2.height=50
     s2.graphics.beginFill("#FF0000").drawRect(0,0,s2.width,s2.height);
     s2.x = 200;
     s2.y = 200;
@@ -120,7 +133,7 @@ function init() {
         }
     }, 1000);
 
-	function tick(event) {
+    function tick(event) {
 
         if(timer==0){
             $("#score").remove()
@@ -190,7 +203,3 @@ function init() {
 
     }
 }
-
-
-
-

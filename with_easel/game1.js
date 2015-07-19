@@ -69,6 +69,20 @@ function checkCollisionWithCircle(rect, circle){
     var dy=distY-rect.height/2;
     return (dx*dx+dy*dy<=(circle.r*circle.r));
 }
+function reorderHighScores(score){
+    if (score > parseInt(localStorage.getItem("High Score 1"))){
+        localStorage.setItem("High Score 2", localStorage.getItem("High Score 1"));
+        localStorage.setItem("High Score 3", localStorage.getItem("High Score 2"));
+        localStorage.setItem("High Score 1", String(score));
+    }
+    else if (score > parseInt(localStorage.getItem("High Score 2"))){
+        localStorage.setItem("High Score 3", localStorage.getItem("High Score 2"));
+        localStorage.setItem("High Score 2", String(score));
+    }
+    else{
+        localStorage.setItem("High Score 3", String(score));
+    }
+}
 
 function init() {
 
@@ -110,9 +124,19 @@ function init() {
 
         if(timer==0){
             $("#score").remove()
+            body = ""
             header = "<h1> Game Over </h1><br>"
-            $("#Body").html(header + "<h4>Final Score: " + score + "</h4>")
-            return
+            body += header
+            body += "<h4>Final Score: " + score + "</h4>"
+            if (score > parseInt(localStorage.getItem("High Score 3"))){
+                reorderHighScores(score)
+                body += "<br> <h2>!! New High Score !!</h2>"
+            }
+            body += "<br> High Score 1: " + localStorage.getItem("High Score 1") + "<br>"
+            body += "<br> High Score 2: " + localStorage.getItem("High Score 2") + "<br>"
+            body += "<br> High Score 3: " + localStorage.getItem("High Score 3") + "<br>"
+            $("#Body").html(body)
+            return 0
         }
         if (key.isPressed('up')) {
             moveUp(myActor, event.delta);
